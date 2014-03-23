@@ -9,12 +9,10 @@ class Artist(db.Model):
 
 	albums = db.relationship('Album', backref='artist', lazy='dynamic', foreign_keys='Album.artist_id')
 	
-	def __init__(self,name):
-		self.name = name
 	def __repr__(self):
 		return '<Artist {}>'.format(self.name)
 	def __str__(self):
-		pass
+		return self.name
 
 class Album(db.Model):
 
@@ -23,15 +21,10 @@ class Album(db.Model):
 	genre = db.Column(db.String(100), nullable=True)
 	artist_id = db.Column(db.Integer, db.ForeignKey('artist.id'))
 
-	songs = db.relationship('Song', backref='album', lazy='dynamic', foreign_keys='Song.album_id')
-	
-	def __init__(self,name,genre=None):
-		self.name = name
-		self.genre = genre
 	def __repr__(self):
 		return '<Album {}>'.format(self.name)
 	def __str__(self):
-		pass
+		return self.name
 	
 class Song(db.Model):
 
@@ -40,11 +33,10 @@ class Song(db.Model):
 	year = db.Column(db.Integer, nullable=True)
 	album_id = db.Column(db.Integer, db.ForeignKey('album.id'))
 
-	def __init__(self,name,year=None):
-		self.name = name
-		self.year = year
+	album = db.relationship('Album', backref='songs')
+
 	def __repr__(self):
 		return '<Song {}>'.format(self.name)
 	def __str__(self):
-		pass
+		return self.name
 

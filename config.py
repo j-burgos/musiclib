@@ -1,5 +1,7 @@
+import os
 
 class DefaultConfig:
+	SECRET_KEY = os.urandom(24)
 	DEBUG = False
 	LISTEN_IP = '0.0.0.0'
 	PORT = 80

@@ -1,14 +1,16 @@
 from flask.ext.script import Manager
 from models import db
 from musiclib import app
+from admin import admin
 
 db.init_app(app)
-manager = Manager(app)
+admin.init_app(app)
 
+manager = Manager(app)
 
 @manager.command
 def createdb(env="dev"):
-	""" Crea el esquema de la base de datos """
+	""" Creates the database schema """
 	app.config.from_object('config.{}Config'.format(env.title()))
 	db.create_all()
 	
